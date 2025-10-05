@@ -5,8 +5,14 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import LLCStepper from "@/app/LLCstepper"; 
 
+// Define el tipo de usuario mínimo
+type User = {
+  username: string;
+  // Puedes agregar más campos si los necesitas
+};
+
 export default function DashboardPage() {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null); // <-- Cambiado de any a User | null
   const searchParams = useSearchParams();
   const router = useRouter();
   const [showStepper, setShowStepper] = useState(false);
@@ -26,7 +32,7 @@ export default function DashboardPage() {
     })
       .then((res) => res.json())
       .then((data) => {
-        setUser(data.user);
+        setUser(data.user); // Asegúrate que data.user cumple con el tipo User
         localStorage.setItem("whop-user", JSON.stringify(data.user));
       })
       .catch(() => {
