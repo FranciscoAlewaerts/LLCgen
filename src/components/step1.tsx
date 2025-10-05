@@ -54,7 +54,7 @@ export default function Step1({ onNext, onClose }: Step1Props) {
                 Setup a new LLC
               </h2>
               <p className="text-base text-left text-gray-300 max-w-md">
-                We'll help you setup everything from State Filing, Registered
+                We&apos;ll help you setup everything from State Filing, Registered
                 Agent, EIN and a business Bank Account to set you up for success.
               </p>
             </div>

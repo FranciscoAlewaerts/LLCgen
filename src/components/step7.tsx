@@ -145,7 +145,7 @@ export default function Step7({ onBack, onClose, form }: Step7Props) {
               </span>
             </div>
             <span className="text-gray-400 text-base text-center">
-              on ReadyLaunch fees if services can't proceed or key steps haven't started. Terms and conditions apply.
+              on ReadyLaunch fees if services can&apos;t proceed or key steps haven&apos;t started. Terms and conditions apply.
             </span>
           </div>
         </div>
