@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import Image from "next/image";
 
 interface Step2Props {
   onNext: (country: string) => void;
-  onClose?: () => void;
+  onBack: () => void;
 }
 
 const countries = [
@@ -17,7 +18,7 @@ const countries = [
   "Other",
 ];
 
-export default function Step2({ onNext, onClose }: Step2Props) {
+export default function Step2({ onNext, onBack }: Step2Props) {
   const [country, setCountry] = useState("");
 
   return (
@@ -25,7 +26,7 @@ export default function Step2({ onNext, onClose }: Step2Props) {
       {/* Header */}
       <div className="flex items-center justify-between px-6 py-4">
         <div className="flex items-center gap-2">
-          <img src="/logo.png" alt="Readylaunch Logo" width={120} height={32} />
+          <Image src="/logo.png" alt="Readylaunch Logo" width={120} height={32} />
         </div>
         <button className="bg-[#232336] text-white text-sm px-4 py-2 rounded-lg font-medium shadow hover:bg-[#232336]/80 transition">
           Need Help?

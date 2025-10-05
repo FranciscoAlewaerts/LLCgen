@@ -68,13 +68,16 @@ export default function Step7({ onBack, onClose, form }: Step7Props) {
 </h2>
 <div className="text-gray-300 text-center mb-3 text-base">
   <span style={{ fontFamily: "Inter Display, sans-serif" }}>
-    You're almost done 🎉
+    You&#39;re almost done 🎉
   </span>
   <br />
   <span style={{ fontFamily: "Inter Display, sans-serif" }}>
     Please review your information and proceed to payment
   </span>
 </div>
+<span className="text-gray-400 text-base text-center">
+  on ReadyLaunch fees if services can&#39;t proceed or key steps haven&#39;t started. Terms and conditions apply.
+</span>
         <div className="w-full max-w-xl flex flex-col gap-3 mb-3">
           {/* Company Name */}
           <div className="flex items-center justify-between bg-[#232336] rounded-xl px-6 py-3">

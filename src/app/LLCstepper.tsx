@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import Step1 from "@/components/step1";
 import Step2 from "@/components/step2";
 import Step3 from "@/components/step3";
-import StepCcorpExtra from "@/components/stepCcorpExtra";
 import Step4 from "@/components/step4";
 import Step5 from "@/components/step5";
 import Step6 from "@/components/step6";
-import Step7 from "@/components/step7"; // <-- Importa tu Step7
+import Step7 from "@/components/step7";
 
 export default function LLCStepper({ onClose }: { onClose: () => void }) {
   const [step, setStep] = useState(1);
@@ -25,7 +24,7 @@ export default function LLCStepper({ onClose }: { onClose: () => void }) {
     <>
       {step === 1 && (
         <Step1
-          onNext={(startType) => {
+          onNext={(startType: "setup" | "onboard") => {
             setForm((prev) => ({ ...prev, startType }));
             setStep(2);
           }}
@@ -34,42 +33,29 @@ export default function LLCStepper({ onClose }: { onClose: () => void }) {
       )}
       {step === 2 && (
         <Step2
-          onNext={(country) => {
+          onNext={(country: string) => {
             setForm((prev) => ({ ...prev, country }));
             setStep(3);
           }}
           onBack={() => setStep(1)}
-          onClose={onClose}
         />
       )}
       {step === 3 && (
         <Step3
-          onNext={(companyName) => {
+          onNext={(companyName: string) => {
             setForm((prev) => ({ ...prev, companyName }));
             setStep(4);
           }}
           onBack={() => setStep(2)}
-          onClose={onClose}
-        />
-      )}
-      {step === 99 && (
-        <StepCcorpExtra
-          onNext={(sCorpStatus) => {
-            setForm((prev) => ({ ...prev, sCorpStatus }));
-            setStep(4);
-          }}
-          onBack={() => setStep(2)}
-          onClose={onClose}
         />
       )}
       {step === 4 && (
         <Step4
-          onNext={(state) => {
+          onNext={(state: string) => {
             setForm((prev) => ({ ...prev, state }));
             setStep(5);
           }}
           onBack={() => {
-            // Si viene de C-Corp, vuelve a StepCcorpExtra, si no, a Step3
             if (form.type === "C-Corp") setStep(99);
             else setStep(3);
           }}
@@ -78,7 +64,7 @@ export default function LLCStepper({ onClose }: { onClose: () => void }) {
       )}
       {step === 5 && (
         <Step5
-          onNext={(plan) => {
+          onNext={(plan: string) => {
             setForm((prev) => ({ ...prev, plan }));
             setStep(6);
           }}
@@ -89,9 +75,9 @@ export default function LLCStepper({ onClose }: { onClose: () => void }) {
       {step === 6 && (
         <Step6
           form={form}
-          onNext={(addressType) => {
+          onNext={(addressType: string) => {
             setForm((prev) => ({ ...prev, addressType }));
-            setStep(7); // <-- Ahora lleva al Step7
+            setStep(7);
           }}
           onBack={() => setStep(5)}
           onClose={onClose}

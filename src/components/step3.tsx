@@ -4,10 +4,9 @@ import Image from "next/image";
 interface Step3Props {
   onNext: (companyName: string) => void;
   onBack: () => void;
-  onClose?: () => void;
 }
 
-export default function Step3({ onNext, onBack, onClose }: Step3Props) {
+export default function Step3({ onNext, onBack }: Step3Props) {
   const [companyName, setCompanyName] = useState("");
 
   return (
