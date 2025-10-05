@@ -1,30 +1,31 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
-import LLCStepper from "@/app/LLCstepper"; 
+import LLCStepper from "@/app/LLCstepper";
 
-// Define el tipo de usuario mínimo
 type User = {
   username: string;
-  // Puedes agregar más campos si los necesitas
 };
 
 export default function DashboardPage() {
-  const [user, setUser] = useState<User | null>(null); // <-- Cambiado de any a User | null
-  const searchParams = useSearchParams();
+  const [user, setUser] = useState<User | null>(null);
   const router = useRouter();
   const [showStepper, setShowStepper] = useState(false);
   const [stepperVisible, setStepperVisible] = useState(false);
 
   useEffect(() => {
-    const token = searchParams.get("whop-token");
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get("whop-token");
+
     if (!token) {
       setUser(null);
       return;
     }
+
     localStorage.setItem("whop-token", token);
+
     fetch("https://api.whop.com/api/v2/me", {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -32,16 +33,15 @@ export default function DashboardPage() {
     })
       .then((res) => res.json())
       .then((data) => {
-        setUser(data.user); // Asegúrate que data.user cumple con el tipo User
+        setUser(data.user);
         localStorage.setItem("whop-user", JSON.stringify(data.user));
       })
       .catch(() => {
         setUser(null);
         localStorage.removeItem("whop-user");
       });
-  }, [searchParams, router]);
+  }, [router]);
 
-  // Manejo de transición para el stepper
   const openStepper = () => {
     setShowStepper(true);
     setTimeout(() => setStepperVisible(true), 10);
@@ -52,7 +52,7 @@ export default function DashboardPage() {
     setTimeout(() => setShowStepper(false), 300);
   };
 
-  // Si el usuario está logueado, muestra el dashboard normal
+  // Si el usuario está logueado
   if (user) {
     return (
       <main className="flex flex-col items-center justify-center min-h-screen p-8 bg-black text-white" style={{ fontFamily: "Work Sans, sans-serif" }}>
@@ -70,68 +70,40 @@ export default function DashboardPage() {
     );
   }
 
-  // Si showStepper es true, muestra solo el stepper con transición
+  // Mostrar stepper
   if (showStepper) {
     return (
       <main className="fixed inset-0 z-50 flex items-center justify-center bg-[#0E0718]" style={{ fontFamily: "Work Sans, sans-serif" }}>
-        <div
-          className={`transition-all duration-300 ${
-            stepperVisible
-              ? "opacity-100 translate-y-0"
-              : "opacity-0 translate-y-8 pointer-events-none"
-          } w-full h-full flex items-center justify-center`}
-        >
+        <div className={`transition-all duration-300 ${stepperVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8 pointer-events-none"} w-full h-full flex items-center justify-center`}>
           <LLCStepper onClose={closeStepper} />
         </div>
       </main>
     );
   }
 
+  // Página principal sin usuario
   return (
     <main className="relative min-h-screen flex flex-col items-center bg-[#0E0718] overflow-x-hidden" style={{ fontFamily: "Work Sans, sans-serif" }}>
-      {/* Fondo decorativo */}
-      <img
-        src="/gradient-corner.png"
-        alt=""
-        className="pointer-events-none select-none absolute right-0 top-0 w-[60vw] max-w-[600px] h-auto z-0"
-        aria-hidden="true"
-        draggable={false}
-      />
-      <img
-        src="/gradient-corner2.png"
-        alt=""
-        className="pointer-events-none select-none absolute left-0 top-0 w-[60vw] max-w-[600px] h-auto z-0"
-        aria-hidden="true"
-        draggable={false}
-      />
-    
+      {/* Fondos decorativos */}
+      <img src="/gradient-corner.png" alt="" className="pointer-events-none select-none absolute right-0 top-0 w-[60vw] max-w-[600px] h-auto z-0" aria-hidden="true" draggable={false} />
+      <img src="/gradient-corner2.png" alt="" className="pointer-events-none select-none absolute left-0 top-0 w-[60vw] max-w-[600px] h-auto z-0" aria-hidden="true" draggable={false} />
+
+      {/* Header */}
       <header className="w-full flex flex-col items-center pt-8 z-10">
-        <Image
-          src="/logo.png"
-          alt="ReadyLaunch Logo"
-          width={220}
-          height={40}
-          className="mb-2"
-          priority
-        />
+        <Image src="/logo.png" alt="ReadyLaunch Logo" width={220} height={40} className="mb-2" priority />
         <div className="w-full max-w-xl h-0.5 bg-gradient-to-r from-transparent via-[#e0bcbc] to-transparent mb-2" />
       </header>
 
+      {/* Hero */}
       <section className="flex flex-col items-center justify-center flex-1 z-10 w-full px-4 mt-8">
-        <button
-          className="mb-6 px-6 py-2 rounded-full bg-gradient-to-r from-gray-400 to-white text-white text-base font-semibold border border-gray-300 shadow disabled:opacity-100"
-          style={{ color: "#fff", textShadow: "0 1px 2px rgba(0,0,0,0.15)", fontFamily: "Inter Display, sans-serif" }}
-          disabled
-        >
+        <button className="mb-6 px-6 py-2 rounded-full bg-gradient-to-r from-gray-400 to-white text-white text-base font-semibold border border-gray-300 shadow disabled:opacity-100"
+          style={{ color: "#fff", textShadow: "0 1px 2px rgba(0,0,0,0.15)", fontFamily: "Inter Display, sans-serif" }} disabled>
           Set up in minutes - Hassle Free!
         </button>
-        <h1
-          className="text-4xl md:text-5xl font-bold text-center text-white mb-4 leading-tight"
-        >
-          Create &amp; Manage Your US<br />
-          based LLC ALL From One
+        <h1 className="text-4xl md:text-5xl font-bold text-center text-white mb-4 leading-tight">
+          Create &amp; Manage Your US<br />based LLC ALL From One
         </h1>
-        <p className="text-base text-center text-gray-200 mb-2" style={{ fontFamily: "Inter Display, sans-serif" }}> 
+        <p className="text-base text-center text-gray-200 mb-2" style={{ fontFamily: "Inter Display, sans-serif" }}>
           Start your company in a few clicks - No matter where you are from!
         </p>
         <p className="text-base text-center text-gray-400 mb-6">
@@ -146,15 +118,12 @@ export default function DashboardPage() {
           </button>
         </div>
         <p className="text-xs text-center text-gray-400 mb-8">
-          SPECIAL PRICING FOR COMMUNITY<br />
-          MEMBERS AND PREFERRED Support
+          SPECIAL PRICING FOR COMMUNITY<br />MEMBERS AND PREFERRED Support
         </p>
-        <p
-          className="text-xs text-center mb-6"
-          style={{ color: "#40449C" }}
-        >
+        <p className="text-xs text-center mb-6" style={{ color: "#40449C" }}>
           500+ companies started for entrepreneurs around the world
         </p>
+
         {/* Logos */}
         <div className="flex flex-wrap justify-center items-center gap-8 mb-12">
           <Image src="/media/mercury.png" alt="Mercury" width={90} height={32} />

@@ -2,9 +2,10 @@ import Image from "next/image";
 import React from "react";
 
 interface Step1Props {
-  onNext: (option: string) => void;
+  onNext: (startType: "setup" | "onboard") => void;
   onClose?: () => void;
 }
+
 
 export default function Step1({ onNext, onClose }: Step1Props) {
   return (

@@ -7,18 +7,26 @@ import Step5 from "@/components/step5";
 import Step6 from "@/components/step6";
 import Step7 from "@/components/step7";
 
-export default function LLCStepper({ onClose }: { onClose: () => void }) {
-  const [step, setStep] = useState(1);
-  const [form, setForm] = useState<{
-    startType?: "setup" | "onboard";
-    type?: "LLC" | "C-Corp";
-    companyName?: string;
-    sCorpStatus?: "S-Corp" | "No";
-    state?: string;
-    plan?: string;
-    country?: string;
-    addressType?: string;
-  }>({});
+// Definimos el tipo de props del Stepper
+type LLCStepperProps = {
+  onClose: () => void;
+};
+
+// Definimos el tipo del formulario
+type FormData = {
+  startType?: "setup" | "onboard";
+  type?: "LLC" | "C-Corp";
+  companyName?: string;
+  sCorpStatus?: "S-Corp" | "No";
+  state?: string;
+  plan?: string;
+  country?: string;
+  addressType?: string;
+};
+
+export default function LLCStepper({ onClose }: LLCStepperProps) {
+  const [step, setStep] = useState<number>(1);
+  const [form, setForm] = useState<FormData>({});
 
   return (
     <>
@@ -31,6 +39,7 @@ export default function LLCStepper({ onClose }: { onClose: () => void }) {
           onClose={onClose}
         />
       )}
+
       {step === 2 && (
         <Step2
           onNext={(country: string) => {
@@ -40,6 +49,7 @@ export default function LLCStepper({ onClose }: { onClose: () => void }) {
           onBack={() => setStep(1)}
         />
       )}
+
       {step === 3 && (
         <Step3
           onNext={(companyName: string) => {
@@ -49,6 +59,7 @@ export default function LLCStepper({ onClose }: { onClose: () => void }) {
           onBack={() => setStep(2)}
         />
       )}
+
       {step === 4 && (
         <Step4
           onNext={(state: string) => {
@@ -62,6 +73,7 @@ export default function LLCStepper({ onClose }: { onClose: () => void }) {
           onClose={onClose}
         />
       )}
+
       {step === 5 && (
         <Step5
           onNext={(plan: string) => {
@@ -72,6 +84,7 @@ export default function LLCStepper({ onClose }: { onClose: () => void }) {
           onClose={onClose}
         />
       )}
+
       {step === 6 && (
         <Step6
           form={form}
@@ -83,6 +96,7 @@ export default function LLCStepper({ onClose }: { onClose: () => void }) {
           onClose={onClose}
         />
       )}
+
       {step === 7 && (
         <Step7
           form={form}

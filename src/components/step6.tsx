@@ -3,10 +3,21 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 interface Step6Props {
+  form: {
+    startType?: "setup" | "onboard";
+    type?: "LLC" | "C-Corp";
+    companyName?: string;
+    sCorpStatus?: "S-Corp" | "No";
+    state?: string;
+    plan?: string;
+    country?: string;
+    addressType?: string;
+  };
   onNext: (addressType: string) => void;
   onBack: () => void;
   onClose?: () => void;
 }
+
 
 const addressOptions = [
   {
