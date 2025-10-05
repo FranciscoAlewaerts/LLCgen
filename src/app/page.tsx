@@ -49,7 +49,7 @@ export default function DashboardPage() {
   // Si el usuario está logueado, muestra el dashboard normal
   if (user) {
     return (
-      <main className="flex flex-col items-center justify-center min-h-screen p-8 bg-black text-white">
+      <main className="flex flex-col items-center justify-center min-h-screen p-8 bg-black text-white" style={{ fontFamily: "Work Sans, sans-serif" }}>
         <h1 className="text-3xl font-bold mb-4">¡Hola {user.username}!</h1>
         <h2 className="text-xl mb-6">Start your business</h2>
         <div className="flex flex-col gap-4">
@@ -67,7 +67,7 @@ export default function DashboardPage() {
   // Si showStepper es true, muestra solo el stepper con transición
   if (showStepper) {
     return (
-      <main className="fixed inset-0 z-50 flex items-center justify-center bg-[#0E0718]">
+      <main className="fixed inset-0 z-50 flex items-center justify-center bg-[#0E0718]" style={{ fontFamily: "Work Sans, sans-serif" }}>
         <div
           className={`transition-all duration-300 ${
             stepperVisible
@@ -82,7 +82,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <main className="relative min-h-screen flex flex-col items-center bg-[#0E0718] overflow-x-hidden">
+    <main className="relative min-h-screen flex flex-col items-center bg-[#0E0718] overflow-x-hidden" style={{ fontFamily: "Work Sans, sans-serif" }}>
       {/* Fondo decorativo */}
       <img
         src="/gradient-corner.png"
@@ -111,22 +111,21 @@ export default function DashboardPage() {
         <div className="w-full max-w-xl h-0.5 bg-gradient-to-r from-transparent via-[#e0bcbc] to-transparent mb-2" />
       </header>
 
-      <section className="flex flex-col items-center justify-center flex-1 z-10 w-full px-4 mt-8" style={{fontFamily: "'Inter Display', sans-serif"}}>
+      <section className="flex flex-col items-center justify-center flex-1 z-10 w-full px-4 mt-8">
         <button
           className="mb-6 px-6 py-2 rounded-full bg-gradient-to-r from-gray-400 to-white text-white text-base font-semibold border border-gray-300 shadow disabled:opacity-100"
-          style={{ color: "#fff", textShadow: "0 1px 2px rgba(0,0,0,0.15)" }}
+          style={{ color: "#fff", textShadow: "0 1px 2px rgba(0,0,0,0.15)", fontFamily: "Inter Display, sans-serif" }}
           disabled
         >
           Set up in minutes - Hassle Free!
         </button>
         <h1
           className="text-4xl md:text-5xl font-bold text-center text-white mb-4 leading-tight"
-          style={{ fontFamily: "'Work Sans', sans-serif" }}
         >
           Create &amp; Manage Your US<br />
           based LLC ALL From One
         </h1>
-        <p className="text-base text-center text-gray-200 mb-2" style={{fontFamily: "'Inter Display', sans-serif"}}> 
+        <p className="text-base text-center text-gray-200 mb-2" style={{ fontFamily: "Inter Display, sans-serif" }}> 
           Start your company in a few clicks - No matter where you are from!
         </p>
         <p className="text-base text-center text-gray-400 mb-6">
